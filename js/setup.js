@@ -47,10 +47,10 @@ var renderWizard = function (wizard) {
   return wizardElement;
 };
 
-var renderWizards = function (wizardsArray) {
+var renderWizards = function (wizards) {
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < wizardsArray.length; i++) {
-    fragment.appendChild(renderWizard(wizardsArray[i]));
+  for (var i = 0; i < wizards.length; i++) {
+    fragment.appendChild(renderWizard(wizards[i]));
   }
   return fragment;
 };
