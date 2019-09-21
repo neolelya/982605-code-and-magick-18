@@ -28,15 +28,15 @@ var getRandomWizard = function () {
   };
 };
 
-var getMockWizards = function (generatorFunction, quantity) {
+var getMockWizards = function (quantity) {
   var result = [];
   for (var i = 0; i < quantity; i++) {
-    result[i] = generatorFunction();
+    result[i] = getRandomWizard();
   }
   return result;
 };
 
-var mockWizards = getMockWizards(getRandomWizard, QUANTITY);
+var mockWizards = getMockWizards(QUANTITY);
 
 var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
@@ -47,10 +47,10 @@ var renderWizard = function (wizard) {
   return wizardElement;
 };
 
-var renderWizards = function (wizards) {
+var renderWizards = function (wizardsArray) {
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < wizards.length; i++) {
-    fragment.appendChild(renderWizard(wizards[i]));
+  for (var i = 0; i < wizardsArray.length; i++) {
+    fragment.appendChild(renderWizard(wizardsArray[i]));
   }
   return fragment;
 };
