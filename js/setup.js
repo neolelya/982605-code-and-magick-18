@@ -72,9 +72,9 @@ var popupEscKeydownHandler = function (evt) {
   }
 };
 
-var popupEnterKeydownHandler = function (evt) {
+var iconEnterKeydownHandler = function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
-    popupOpenButtonClickHandler();
+    openPopup();
   }
 };
 
@@ -122,7 +122,7 @@ var popupCloseButtonClickHandler = function () {
 };
 
 setupOpen.addEventListener('click', popupOpenButtonClickHandler);
-setupOpen.addEventListener('keydown', popupEnterKeydownHandler);
+setupOpen.addEventListener('keydown', iconEnterKeydownHandler);
 
 var openPopup = function () {
   setup.classList.remove('hidden');
@@ -164,7 +164,7 @@ eyesColor.addEventListener('click', eyesClickHandler);
 
 var fireballClickHandler = function () {
   var color = getRandomArrayItem(FIREBALL_COLORS);
-  fireballColor.style.background = color;
+  fireballColor.style.backgroundColor = color;
   setup.querySelector('[name="fireball-color"]').value = color;
 };
 
