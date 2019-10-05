@@ -8,21 +8,24 @@
   var coatColor = setup.querySelector('.wizard-coat');
   var eyesColor = setup.querySelector('.wizard-eyes');
   var fireballColor = setup.querySelector('.setup-fireball-wrap');
+  var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+  var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+  var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
   var popupEscKeydownHandler = function (evt) {
-    if (evt.keyCode === window.constants.ESC_KEYCODE) {
+    if (evt.keyCode === window.util.isEscEvent(evt, closePopup)) {
       closePopup();
     }
   };
 
   var iconEnterKeydownHandler = function (evt) {
-    if (evt.keyCode === window.constants.ENTER_KEYCODE) {
+    if (evt.keyCode === window.util.isEnterEvent(evt, openPopup)) {
       openPopup();
     }
   };
 
   var popupEnterCloseHandler = function (evt) {
-    if (evt.keyCode === window.constants.ENTER_KEYCODE) {
+    if (evt.keyCode === window.util.isEnterEvent(evt, openPopup)) {
       closePopup();
     }
   };
@@ -98,7 +101,7 @@
   };
 
   var coatClickHandler = function () {
-    var color = window.util.getRandomArrayItem(window.constants.COAT_COLORS);
+    var color = window.util.getRandomArrayItem(COAT_COLORS);
     coatColor.style.fill = color;
     setup.querySelector('[name="coat-color"]').value = color;
   };
@@ -106,7 +109,7 @@
   coatColor.addEventListener('click', coatClickHandler);
 
   var eyesClickHandler = function () {
-    var color = window.util.getRandomArrayItem(window.constants.EYE_COLORS);
+    var color = window.util.getRandomArrayItem(EYE_COLORS);
     eyesColor.style.fill = color;
     setup.querySelector('[name="eyes-color"').value = color;
   };
@@ -114,7 +117,7 @@
   eyesColor.addEventListener('click', eyesClickHandler);
 
   var fireballClickHandler = function () {
-    var color = window.util.getRandomArrayItem(window.constants.FIREBALL_COLORS);
+    var color = window.util.getRandomArrayItem(FIREBALL_COLORS);
     fireballColor.style.backgroundColor = color;
     setup.querySelector('[name="fireball-color"]').value = color;
   };

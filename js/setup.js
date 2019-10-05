@@ -4,6 +4,8 @@
   var WIZARDS_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
   var WIZARDS_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
   var QUANTITY = 4;
+  var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+  var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
   var dialogWindow = document.querySelector('.setup');
 
@@ -17,8 +19,8 @@
   var getRandomWizard = function () {
     return {
       name: window.util.getRandomArrayItem(WIZARDS_NAMES) + ' ' + window.util.getRandomArrayItem(WIZARDS_SURNAMES),
-      coatColor: window.util.getRandomArrayItem(window.constants.COAT_COLORS),
-      eyesColor: window.util.getRandomArrayItem(window.constants.EYE_COLORS),
+      coatColor: window.util.getRandomArrayItem(COAT_COLORS),
+      eyesColor: window.util.getRandomArrayItem(EYE_COLORS),
     };
   };
 
