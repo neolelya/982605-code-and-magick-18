@@ -50,5 +50,16 @@
     }
     return fragment;
   };
-  similarListElement.appendChild(renderWizards(mockWizards));
+
+  var appendWizards = function () {
+    similarListElement.appendChild(renderWizards(mockWizards));
+  };
+
+  window.setup = {
+    appendWizards: appendWizards,
+
+    removeWizards: function () {
+      similarListElement.innerHTML = '';
+    }
+  };
 })();
