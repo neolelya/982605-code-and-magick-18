@@ -9,18 +9,14 @@
   };
 
   window.util = {
-    isEscEvent: function (evt, action) {
-      if (evt.keyCode === ESC_KEYCODE) {
-        action();
-      }
+    isEscEvent: function (evt) {
+      return evt.keyCode === ESC_KEYCODE;
     },
 
-    isEnterEvent: function (evt, action) {
-      if (evt.keyCode === ENTER_KEYCODE) {
-        action();
-      }
+    isEnterEvent: function (evt) {
+      return evt.keyCode === ENTER_KEYCODE;
     },
 
-    getRandomArrayItem: getRandomArrayItem,
+    getRandomArrayItem: getRandomArrayItem
   };
 })();

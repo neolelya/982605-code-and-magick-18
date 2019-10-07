@@ -52,14 +52,11 @@
   };
 
   var appendWizards = function () {
+    similarListElement.innerHTML = '';
     similarListElement.appendChild(renderWizards(mockWizards));
   };
 
-  window.setup = {
-    appendWizards: appendWizards,
-
-    removeWizards: function () {
-      similarListElement.innerHTML = '';
-    }
+  window.similarWizards = {
+    appendWizards: appendWizards
   };
 })();
