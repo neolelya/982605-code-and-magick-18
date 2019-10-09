@@ -3,10 +3,13 @@
 (function () {
   var setup = document.querySelector('.setup');
   var setupClose = setup.querySelector('.setup-close');
+  var form = setup.querySelector('.setup-wizard-form');
   var userNameInput = document.querySelector('.setup-user-name');
   var coatColor = setup.querySelector('.wizard-coat');
   var eyesColor = setup.querySelector('.wizard-eyes');
   var fireballColor = setup.querySelector('.setup-fireball-wrap');
+  var inputCoatColor = setup.querySelector('[name="coat-color"]');
+  var dialogHandle = setup.querySelector('.upload');
   var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
   var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
   var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
@@ -73,9 +76,24 @@
     elem.style.top = null;
   };
 
+  var formUploadHandler = function () {
+    popupCloseButtonClickHandler();
+  };
+
+  var formErrorHandler = function (errorMessage) {
+    popupCloseButtonClickHandler();
+    window.message.createMessage(errorMessage);
+  };
+
+  var formSubmitHandler = function (evt) {
+    var formData = new FormData(form);
+
+    evt.preventDefault();
+    window.backend.save(formData, formUploadHandler, formErrorHandler);
+  };
+
   var openPopup = function () {
     setup.classList.remove('hidden');
-    window.similarWizards.appendWizards();
     setupClose.addEventListener('click', popupCloseButtonClickHandler);
     setupClose.addEventListener('keydown', popupEnterCloseHandler);
     userNameInput.addEventListener('focus', inputFocusUseHandler);
@@ -84,6 +102,7 @@
     userNameInput.addEventListener('invalid', inputUserNameCheckHandler);
     userNameInput.addEventListener('input', inputNameInputHandler);
     dialogHandle.addEventListener('mousedown', dialogHandleHandler);
+    form.addEventListener('submit', formSubmitHandler);
   };
 
   var closePopup = function () {
@@ -97,12 +116,13 @@
     userNameInput.removeEventListener('invalid', inputUserNameCheckHandler);
     userNameInput.removeEventListener('input', inputNameInputHandler);
     dialogHandle.removeEventListener('mousedown', dialogHandleHandler);
+    form.removeEventListener('submit', formSubmitHandler);
   };
 
   var coatClickHandler = function () {
     var color = window.util.getRandomArrayItem(COAT_COLORS);
     coatColor.style.fill = color;
-    setup.querySelector('[name="coat-color"]').value = color;
+    inputCoatColor.value = color;
   };
 
   coatColor.addEventListener('click', coatClickHandler);
@@ -122,8 +142,6 @@
   };
 
   fireballColor.addEventListener('click', fireballClickHandler);
-
-  var dialogHandle = setup.querySelector('.upload');
 
   var dialogHandleHandler = function (evt) {
     evt.preventDefault();
