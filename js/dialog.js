@@ -77,18 +77,17 @@
   };
 
   var formUploadHandler = function () {
-    popupCloseButtonClickHandler();
+    closePopup();
   };
 
   var formErrorHandler = function (errorMessage) {
-    popupCloseButtonClickHandler();
+    closePopup();
     window.message.createMessage(errorMessage);
   };
 
   var formSubmitHandler = function (evt) {
-    var formData = new FormData(form);
-
     evt.preventDefault();
+    var formData = new FormData(form);
     window.backend.save(formData, formUploadHandler, formErrorHandler);
   };
 

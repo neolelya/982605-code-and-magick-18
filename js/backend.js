@@ -3,9 +3,16 @@
 (function () {
   var TIMEOUT = 5000;
 
-  var URL = {
+  var Url = {
     UPLOAD: 'https://js.dump.academy/code-and-magick',
     LOAD: 'https://js.dump.academy/code-and-magick/data'
+  };
+
+  var ErrorMessages = {
+    400: 'Неверный запрос',
+    401: 'Пользователь не авторизован',
+    404: 'Ничего не найдено',
+    500: 'Ошибка на стороне сервера'
   };
 
   var createXhr = function (onLoad, onError) {
@@ -14,24 +21,11 @@
     xhr.timeout = TIMEOUT;
 
     xhr.addEventListener('load', function () {
-      switch (xhr.status) {
-        case 200:
-          onLoad(xhr.response);
-          break;
-        case 400:
-          onError('Неверный запрос');
-          break;
-        case 401:
-          onError('Пользователь не авторизован');
-          break;
-        case 404:
-          onError('Ничего не найдено');
-          break;
-        case 500:
-          onError('Ошибка на стороне сервера');
-          break;
-        default:
-          onError('Cтатус ответа: : ' + xhr.status + ' ' + xhr.statusText);
+      if (xhr.status === 200) {
+        onLoad(xhr.response);
+      } else {
+        var errorMessage = 'Cтатус ответа: : ' + xhr.status + ' ' + xhr.statusText;
+        onError(ErrorMessages[xhr.status] || onError(errorMessage));
       }
     });
 
@@ -49,14 +43,14 @@
   var save = function (data, onLoad, onError) {
     var xhr = createXhr(onLoad, onError);
 
-    xhr.open('POST', URL.UPLOAD);
+    xhr.open('POST', Url.UPLOAD);
     xhr.send(data);
   };
 
   var load = function (onLoad, onError) {
     var xhr = createXhr(onLoad, onError);
 
-    xhr.open('GET', URL.LOAD);
+    xhr.open('GET', Url.LOAD);
     xhr.send();
   };
 
