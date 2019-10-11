@@ -8,11 +8,12 @@
     LOAD: 'https://js.dump.academy/code-and-magick/data'
   };
 
-  var ErrorMessages = {
-    400: 'Неверный запрос',
-    401: 'Пользователь не авторизован',
-    404: 'Ничего не найдено',
-    500: 'Ошибка на стороне сервера'
+  var StatusCodes = {
+    OK: 200,
+    BAD_REQUEST: 400,
+    UNAUTHORIZED: 401,
+    NOT_FOUND: 404,
+    INTERNAL_SERVER_ERROR: 500
   };
 
   var createXhr = function (onLoad, onError) {
@@ -21,11 +22,24 @@
     xhr.timeout = TIMEOUT;
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
-        onLoad(xhr.response);
-      } else {
-        var errorMessage = 'Cтатус ответа: : ' + xhr.status + ' ' + xhr.statusText;
-        onError(ErrorMessages[xhr.status] || onError(errorMessage));
+      switch (xhr.status) {
+        case StatusCodes.OK:
+          onLoad(xhr.response);
+          break;
+        case StatusCodes.BAD_REQUEST:
+          onError('Неверный запрос');
+          break;
+        case StatusCodes.UNAUTHORIZED:
+          onError('Пользователь не авторизован');
+          break;
+        case StatusCodes.NOT_FOUND:
+          onError('Ничего не найдено');
+          break;
+        case StatusCodes.INTERNAL_SERVER_ERROR:
+          onError('Ошибка на стороне сервера');
+          break;
+        default:
+          onError('Cтатус ответа: : ' + xhr.status + ' ' + xhr.statusText);
       }
     });
 
