@@ -111,32 +111,28 @@
     form.removeEventListener('submit', formSubmitHandler);
   };
 
+  var Coordinate = function (x, y) {
+    this.x = x;
+    this.y = y;
+  };
+
   var dialogHandleHandler = function (evt) {
     evt.preventDefault();
 
-    var startCoords = {
-      x: evt.clientX,
-      y: evt.clientY,
-    };
+    var startCoords = new Coordinate(evt.clientX, evt.clientY);
 
     var dragged = false;
 
     var handleMouseMoveHandler = function (moveEvt) {
       moveEvt.preventDefault();
 
-      var shift = {
-        x: moveEvt.clientX - startCoords.x,
-        y: moveEvt.clientY - startCoords.y,
-      };
+      var shift = new Coordinate(moveEvt.clientX - startCoords.x, moveEvt.clientY - startCoords.y);
 
       if (shift.x !== 0 || shift.y !== 0) {
         dragged = true;
       }
 
-      startCoords = {
-        x: moveEvt.clientX,
-        y: moveEvt.clientY,
-      };
+      startCoords = new Coordinate(moveEvt.clientX, moveEvt.clientY);
 
       setup.style.left = (setup.offsetLeft + shift.x) + 'px';
       setup.style.top = (setup.offsetTop + shift.y) + 'px';
